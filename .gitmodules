@@ -13,3 +13,6 @@
 [submodule "emailService"]
 	path = emailService
 	url = git@github.com:ele-one/emailService.git
+[submodule "serviceRegistry"]
+	path = serviceRegistry
+	url = https://github.com/ele-one/serviceRegistry.git

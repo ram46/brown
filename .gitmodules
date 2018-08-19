@@ -1,0 +1,15 @@
+[submodule "searchService"]
+	path = searchService
+	url = git@github.com:ele-one/searchService.git
+[submodule "timelineService"]
+	path = timelineService
+	url = git@github.com:ele-one/timelineService.git
+[submodule "apiGateway"]
+	path = apiGateway
+	url = git@github.com:ele-one/apiGateway.git
+[submodule "crudService"]
+	path = crudService
+	url = git@github.com:ele-one/crudService.git
+[submodule "emailService"]
+	path = emailService
+	url = git@github.com:ele-one/emailService.git

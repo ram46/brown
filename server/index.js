@@ -13,18 +13,19 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
   API Routes
  + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +*/
 
-app.get('/monitor', (req,res)=> {
-  request('http://localhost:9001/getMicroservices', (error, response, body) => {
-    if (error) res.send('Error while getting microservices')
-    else res.send(body)
-  })
-
-  // res.sendFile('client/dist/index.html');
-});
+app.get('/monitor', monitor);
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
   API Route Functions
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
+
+function monitor(req,res) {
+  request('http://localhost:9001/getMicroservices', (error, response, body) => {
+    if (error) res.send('Error while getting microservices')
+    else res.send(body)
+  })
+}
+
 
 function restrict() {
 // code here if cookie is verified

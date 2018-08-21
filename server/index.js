@@ -32,8 +32,6 @@ function getServiceAddressesByPort(req, res) {
     request('http://localhost:9001/getMicroservices', (error, response, body) => {
     if (error) res.send('Error while getting microservices')
     if(body) {
-        console.log('************ in side getAllServiceAddresses ')
-
         var grouped_by_port = _.groupBy(JSON.parse(body), 'port')
         console.log(grouped_by_port)
         res.send(grouped_by_port)

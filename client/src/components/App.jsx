@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './ListServices.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,8 +26,12 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List services={this.state.services}/>
+      <h1> api gateway </h1>
+      <div id="content">
+        <iframe src="http://localhost:5001" scrolling="no" > </iframe>
+        <br/> <br/><br/> <br/><br/> <br/>
+        <iframe src="http://localhost:5002" scrolling="no" > </iframe>
+        </div>
     </div>)
   }
 }

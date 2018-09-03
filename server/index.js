@@ -21,7 +21,7 @@ app.get('/getServiceAddressesByPort', getServiceAddressesByPort);
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
 
 function monitor(req,res) {
-  request('https://brown-svcregistry.herokuapp.com/getMicroservices', (error, response, body) => {
+  request('http://localhost:9001/getMicroservices', (error, response, body) => {
     if (error) res.send('Error while getting microservices')
     else res.send(body)
   })
@@ -29,7 +29,7 @@ function monitor(req,res) {
 
 
 function getServiceAddressesByPort(req, res) {
-    request('https://brown-svcregistry.herokuapp.com:9001/getMicroservices', (error, response, body) => {
+    request('http://localhost:9001/getMicroservices', (error, response, body) => {
     if (error) res.send('Error while getting microservices')
     if(body) {
         var grouped_by_port = _.groupBy(JSON.parse(body), 'port')

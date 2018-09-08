@@ -28,9 +28,9 @@ class App extends React.Component {
     return (<div>
       <h1> api gateway </h1>
       <div id="content">
-        <iframe src="http://localhost:5001" scrolling="no" > </iframe>
+        <iframe src="http://localhost:7777/crud/" scrolling="no" > </iframe>
         <br/> <br/><br/> <br/><br/> <br/>
-        <iframe src="http://localhost:5002" scrolling="no" > </iframe>
+        <iframe src="http://localhost:7777/search/" scrolling="no" > </iframe>
         </div>
     </div>)
   }

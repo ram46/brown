@@ -1,0 +1,145 @@
+version: "3"
+services:
+
+  nginx:
+    # replace username/repo:tag with your name and image details
+    image: 676084889093.dkr.ecr.us-east-1.amazonaws.com/brown-nginx
+    container_name: nginx-node
+    command: [nginx-debug, '-g', 'daemon off;']
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: brown_logs2018010189
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: brown
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "7777:7777"
+    environment:
+      - HOSTNAME=nginx.host
+    depends_on:
+      - gateway
+      - crud
+      - search
+      - service
+
+    networks:
+      - back-end
+      - front-end
+
+  gateway:
+    # replace username/repo:tag with your name and image details
+    image: 676084889093.dkr.ecr.us-east-1.amazonaws.com/brown-gateway
+    container_name: gateway-node
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: brown_logs2018010188
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: brown
+    ports:
+      - "9000:9000"
+    environment:
+      - HOSTNAME=gateway.host
+
+    networks:
+      - front-end
+      - back-end
+
+  crud:
+    # replace username/repo:tag with your name and image details
+    image: 676084889093.dkr.ecr.us-east-1.amazonaws.com/brown-crud
+    container_name: crud-node
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: brown_logs2018010187
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: brown
+    ports:
+      - "5001:5001"
+    environment:
+      - HOSTNAME=crud.host
+    networks:
+      - front-end
+      - back-end
+
+  search:
+    # replace username/repo:tag with your name and image details
+    image: 676084889093.dkr.ecr.us-east-1.amazonaws.com/brown-search
+    container_name: search-node
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: brown_logs2018010186
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: brown
+    ports:
+      - "5002:5002"
+    environment:
+      - HOSTNAME=search.host
+    networks:
+      - front-end
+      - back-end
+
+  service:
+    # replace username/repo:tag with your name and image details
+    image: 676084889093.dkr.ecr.us-east-1.amazonaws.com/brown-service
+    container_name: service-node
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: brown_logs2018010185
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: brown
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "9001:9001"
+    environment:
+      - HOSTNAME=service.host
+    networks:
+      - front-end
+      - back-end
+
+networks:
+  front-end:
+  back-end:

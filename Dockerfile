@@ -21,7 +21,7 @@ COPY . /apiGateway
 # Note the above 'COPY . /apiGateway' could be achieved using relative path '.', since we are already in the apiGateway as we did WORKDIR above and did not change path after that.
 # COPY . .
 
-CMD ["npm", "react-dev"]
+CMD ["npm", "client"]
 CMD [ "npm", "start"]
 
 

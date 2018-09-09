@@ -16,6 +16,3 @@
 [submodule "serviceRegistry"]
 	path = serviceRegistry
 	url = https://github.com/ele-one/serviceRegistry.git
-[submodule "brown"]
-	path = brown
-	url = git@github.com:ele-one/brown.git

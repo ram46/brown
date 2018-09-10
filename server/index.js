@@ -10,6 +10,19 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 var session = require('express-session')
 
+var MySQLStore = require('express-mysql-session')(session);
+
+var options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'session_test',
+    password: 'password',
+    database: 'session_test'
+};
+
+
+var sessionStore = new MySQLStore(options);
+
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
   API Routes
@@ -23,8 +36,6 @@ app.post('/login', login);
 
 
 
-
-const CLIENT_ID = '15484339292-sl85fv09m51i4q69ecfgtu392266fm4o.apps.googleusercontent.com'
 
 
 
@@ -72,16 +83,19 @@ function restrict() {
 // }
 
 
+const CLIENT_ID = '15484339292-sl85fv09m51i4q69ecfgtu392266fm4o.apps.googleusercontent.com'
+
+// const CLIENT_ID = '15484339292-sl85fv09m51i4q69ecfgtu392266fm4o.apps.googleusercontent.com'
+
 function verify_IDToken(token, cb) {
-  // from here
-  // console.log(token)
+
   const {OAuth2Client} = require('google-auth-library');
-  const client = new OAuth2Client('964221102096-7fq0ldg3srrav3bqpe6hurmgqj5hkvm9.apps.googleusercontent.com');
+  const client = new OAuth2Client(CLIENT_ID);
 
   async function verify() {
     const ticket = await client.verifyIdToken({
         idToken: token,
-        audience: '964221102096-7fq0ldg3srrav3bqpe6hurmgqj5hkvm9.apps.googleusercontent.com',
+        audience: CLIENT_ID,
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
@@ -96,34 +110,19 @@ function verify_IDToken(token, cb) {
 
 // app.set('trust proxy', 1) // trust first proxy
 app.use(session({
+  key: 'brown_session',
   secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: false }
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { name:'brown', secure: false }
 }))
 
 
 
-// app.get('/asset', function(req, res, next) {
-//   if (req.session.views) {
-//     req.session.views++
-//     res.setHeader('Content-Type', 'text/html')
-//     res.write('<p>views: ' + req.session.views + '</p>')
-//     res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
-//     res.end()
-//   } else {
-//     req.session.views = 1
-//     res.end('welcome to the session demo. refresh!')
-//   }
-// })
-
-
-
-
 function login(req, res) {
-  // console.log(req.body)
-  console.log(req.body)
-  var id_token = req.body.data.token
+  // console.log(req)
+  var id_token = req.body.profile.token.id_token
   if (id_token) {
     verify_IDToken(id_token, (err, userid) => {
       // console.log('**********')
@@ -133,13 +132,12 @@ function login(req, res) {
         req.session.regenerate(function(err) {
         req.session.user = userid;
 
+        console.log('writing cookie')
         console.log(res.cookie)
 
         res.cookie('brwon', 'cookieValue')
       })
-
     })
-
   }
   // res.send('hit the /login route')
 }

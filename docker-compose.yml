@@ -61,10 +61,15 @@ services:
         condition: on-failure
     ports:
       - "5001:5001"
+    # environment:
+    #   CRUD_DB_HOST: cruddb:3306
+    env_file:
+      crud_db.env
+    depends_on:
+      - cruddb
     networks:
       - front-end
       - back-end
-
 
   search:
     # replace username/repo:tag with your name and image details
@@ -83,6 +88,17 @@ services:
       - "5002:5002"
     networks:
       - front-end
+      - back-end
+
+  cruddb:
+    image: mysql:5.7
+    # volumes:
+    #   - db_data:/var/lib/mysql
+    container_name: cruddb-node
+    restart: always
+    env_file:
+      crud_db.env
+    networks:
       - back-end
 
 networks:

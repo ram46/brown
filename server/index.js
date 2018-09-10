@@ -8,6 +8,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+var session = require('express-session')
+
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
   API Routes
@@ -16,6 +18,16 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.get('/monitor', monitor);
 
 app.get('/getServiceAddressesByPort', getServiceAddressesByPort);
+
+app.post('/login', login);
+
+
+
+
+const CLIENT_ID = '15484339292-sl85fv09m51i4q69ecfgtu392266fm4o.apps.googleusercontent.com'
+
+
+
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
   API Route Functions
 + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + */
@@ -26,6 +38,7 @@ function monitor(req,res) {
     else res.send(body)
   })
 }
+
 
 
 function getServiceAddressesByPort(req, res) {
@@ -46,24 +59,91 @@ function restrict() {
 // else redirect to login page
 }
 
-function getItems(req, res) {
-  // req.params.id
+
+// function verify_IDToken(token) {
+//   return new Promise((resolve, reject ) => {
+//     const {OAuth2Client} = require('google-auth-library');
+//     const client = new OAuth2Client('964221102096-7fq0ldg3srrav3bqpe6hurmgqj5hkvm9.apps.googleusercontent.com');
+//     const ticket = await client.verifyIdToken({
+//       idToken: token,
+//       audience: '964221102096-7fq0ldg3srrav3bqpe6hurmgqj5hkvm9.apps.googleusercontent.com',
+//     });
+//   });
+// }
+
+
+function verify_IDToken(token, cb) {
+  // from here
+  // console.log(token)
+  const {OAuth2Client} = require('google-auth-library');
+  const client = new OAuth2Client('964221102096-7fq0ldg3srrav3bqpe6hurmgqj5hkvm9.apps.googleusercontent.com');
+
+  async function verify() {
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: '964221102096-7fq0ldg3srrav3bqpe6hurmgqj5hkvm9.apps.googleusercontent.com',
+    });
+    const payload = ticket.getPayload();
+    const userid = payload['sub'];
+    // console.log(userid)
+    if (userid) cb(null, userid)
+    else cb('not found', null)
+
+    }
+    verify()
 }
 
 
-function getProducts(arg, restrict, cb) {
+// app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
 
+
+
+// app.get('/asset', function(req, res, next) {
+//   if (req.session.views) {
+//     req.session.views++
+//     res.setHeader('Content-Type', 'text/html')
+//     res.write('<p>views: ' + req.session.views + '</p>')
+//     res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+//     res.end()
+//   } else {
+//     req.session.views = 1
+//     res.end('welcome to the session demo. refresh!')
+//   }
+// })
+
+
+
+
+function login(req, res) {
+  // console.log(req.body)
+  console.log(req.body)
+  var id_token = req.body.data.token
+  if (id_token) {
+    verify_IDToken(id_token, (err, userid) => {
+      // console.log('**********')
+      // console.log(err, userid)
+      if (userid)
+        console.log('ABSCCDS ' + userid)
+        req.session.regenerate(function(err) {
+        req.session.user = userid;
+
+        console.log(res.cookie)
+
+        res.cookie('brwon', 'cookieValue')
+      })
+
+    })
+
+  }
+  // res.send('hit the /login route')
 }
 
-
-function login(username, password) {
-  // req.body
-}
-
-
-function signup() {
-
-}
 
 var port = process.env.PORT || 9000;
 

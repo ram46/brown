@@ -45,22 +45,23 @@ class App extends React.Component {
 
   render () {
      var button;
+     var home;
+
     if (!this.state.isLoggedIn) {
       button = <Login handleLogin={this.handleLogin}/>
     }
 
     if (this.state.isLoggedIn) {
       button = <Logout handleLogoutClick={this.handleLogoutClick} />
-    }
+      home = <div>  <iframe src="http://localhost:7777/crud/" scrolling="no" > </iframe> <br/> <br/><br/> <br/><br/> <br/> <iframe src="http://localhost:7777/search/" scrolling="no" > </iframe> </div>
+      }
 
     return (<div>
       <div id="content">
         <h1> api gateway </h1>
         {button}
         <br/>
-        <iframe src="http://localhost:7777/crud/" scrolling="no" > </iframe>
-        <br/> <br/><br/> <br/><br/> <br/>
-        <iframe src="http://localhost:7777/search/" scrolling="no" > </iframe>
+        {home}
       </div>
     </div>)
   }

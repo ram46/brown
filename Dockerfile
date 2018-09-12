@@ -21,6 +21,7 @@ COPY . /apiGateway
 # COPY . .
 
 CMD npm run postinstall && DEBUG=express-mysql-session* node server/index.js
+# depends on in docker-compose just depends on the container start and does not make sure that database is created and all that. Because of this reason, it was giving error and table was unable to create. Adding delay of 3 sec by doing sleep 3 gives ample time to setup db container before it starts the gateway container that uses and fills in the db.
 
 # Two things 1) EXPOSE and 2) using -p in the docker run cmd for publish.
 # EXPOSE is used for inter dockers communication. Publishing is important when the service needs to be accessed from outside e.g localhost.

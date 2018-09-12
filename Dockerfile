@@ -12,7 +12,7 @@ WORKDIR apiGateway
 # /apiGateway is a absolute path, could also have done --> COPY package.json .
 COPY package.json /apiGateway
 
-RUN npm install
+RUN npm install && sleep 5
 
 # Copying everything from the local folder where the Dockerfile exist to the docker's '/apiGateway'
 COPY . /apiGateway
@@ -20,7 +20,7 @@ COPY . /apiGateway
 # Note the above 'COPY . /apiGateway' could be achieved using relative path '.', since we are already in the apiGateway as we did WORKDIR above and did not change path after that.
 # COPY . .
 
-CMD npm run postinstall && sleep 3 && DEBUG=express-mysql-session* node server/index.js
+CMD npm run postinstall && DEBUG=express-mysql-session* node server/index.js
 
 # Two things 1) EXPOSE and 2) using -p in the docker run cmd for publish.
 # EXPOSE is used for inter dockers communication. Publishing is important when the service needs to be accessed from outside e.g localhost.

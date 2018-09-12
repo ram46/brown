@@ -39,12 +39,15 @@ services:
         condition: on-failure
     ports:
       - "9000:9000"
+    env_file:
+      gateway_db.env
     networks:
       - front-end
       - back-end
     depends_on:
       - crud
       - search
+      - gatewaydb
 
   crud:
     # replace username/repo:tag with your name and image details
@@ -101,6 +104,21 @@ services:
     networks:
       - back-end
 
+  gatewaydb:
+    image: mysql:5.7
+    container_name: gatewaydb-node
+    restart: always
+    env_file:
+      gateway_db.env
+    networks:
+      - back-end
+
 networks:
   front-end:
   back-end:
+
+
+
+
+
+

@@ -1,3 +1,10 @@
+######### STEPS
+## 1- Run  `docker-compose -f docker-compose-splunk.yml up`
+## 2- Then login to Splunk -> Setting -> Inputs -> HTTP Event Collector -> create a new token via Splunk UI
+## 3 Add this newly created token to the HEC
+## 4- Run other compose file `docker-compose up`
+
+
 version: "3"
 
 services:
@@ -23,6 +30,12 @@ services:
       - gateway
       - crud
       - search
+    logging:
+      driver: splunk
+      options:
+        splunk-url: "https://127.0.0.1:8088"
+        splunk-token: "876557C5-28CA-44A1-9388-76211F0C1634"
+        splunk-insecureskipverify: "true"
 
   gateway:
     # replace username/repo:tag with your name and image details
@@ -115,7 +128,3 @@ services:
 networks:
   front-end:
   back-end:
-
-
-
-

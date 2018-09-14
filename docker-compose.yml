@@ -37,7 +37,6 @@ services:
         splunk-token: "876557C5-28CA-44A1-9388-76211F0C1634"
         splunk-insecureskipverify: "true"
 
-
   gateway:
     # replace username/repo:tag with your name and image details
     build: ./apiGateway

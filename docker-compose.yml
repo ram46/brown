@@ -24,7 +24,6 @@ services:
       - crud
       - search
 
-
   gateway:
     # replace username/repo:tag with your name and image details
     build: ./apiGateway
@@ -116,8 +115,6 @@ services:
 networks:
   front-end:
   back-end:
-
-
 
 
 

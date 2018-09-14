@@ -1,7 +1,8 @@
 ######### STEPS
 ## 1- Run  `docker-compose -f docker-compose-splunk.yml up`
-## 2- Then run create a token
-## 3- Run this file `docker-compose up`
+## 2- Then login to Splunk -> Setting -> Inputs -> HTTP Event Collector -> create a new token via Splunk UI
+## 3 Add this newly created token to the HEC
+## 4- Run other compose file `docker-compose up`
 
 
 version: "3"

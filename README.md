@@ -105,12 +105,14 @@ docker image rm -f demo  --> remove the image
 
 ## PREPPING WORK
 
-- Allow domain:port or localhost:port to dev.console.google
-- Fix security group in AWS EC2 instance
-- Change the .env file manually as below
-- Copy the config file as below
-- Create the certificate and copy in the right folder
+- 1: Allow domain:port or localhost:port to dev.console.google
+- 2: Fix security group in AWS EC2 instance
+- 3: Change the .env file manually as below
+- 4: Copy the config file as below
+- 5: Create the certificate and copy in the right folder
 
+- 6: Compose up Splunk instance first and createa HEC token
+- 7: Copy the token into docker-compose.yml and bring up all other instances
 
 ```
 $ cat ../prep.sh 

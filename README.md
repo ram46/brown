@@ -103,3 +103,46 @@ docker image rm -f demo  --> remove the image
 
 ```
 
+##### PREPPING WORK
+
+```
+$ cat ../prep.sh 
+# manual
+# cp brown/gateway_db.env.example brown/gateway_db.env //fix
+# cp brown/crud_db.env.example brown/crud_db.env //fix
+
+# script
+cp brown/apiGateway/config.example.js brown/apiGateway/config.js
+cp brown.crudService/config.example.js brown/crudService/config.js
+
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout brown/apiGateway/nginx/ele-one-brown.com.key -out brown/apiGateway/nginx/ele-one-brown.com.crt
+
+##### docker install
+## reove prev version
+sudo apt-get remove docker docker-engine docker.io
+sudo apt-get update
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+sudo apt-get update
+
+
+#### docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+
+
+
+```

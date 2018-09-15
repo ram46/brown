@@ -103,7 +103,14 @@ docker image rm -f demo  --> remove the image
 
 ```
 
-##### PREPPING WORK
+## PREPPING WORK
+
+- Allow domain:port or localhost:port to dev.console.google
+- Fix security group in AWS EC2 instance
+- Change the .env file manually as below
+- Copy the config file as below
+- Create the certificate and copy in the right folder
+
 
 ```
 $ cat ../prep.sh 

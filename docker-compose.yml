@@ -34,7 +34,7 @@ services:
       driver: splunk
       options:
         splunk-url: "https://127.0.0.1:8088"
-        splunk-token: "876557C5-28CA-44A1-9388-76211F0C1634"
+        splunk-token: "00000000-0000-0000-0000-000000000000"
         splunk-insecureskipverify: "true"
 
   gateway:

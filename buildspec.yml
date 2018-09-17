@@ -1,8 +1,8 @@
 version: 0.2
 
-env:
-  variables:
-     # key: "value."
+#env:
+  #variables:
+     # key: "value"
      # key: "value"
   #parameter-store:
      # key: "value"
@@ -30,7 +30,6 @@ phases:
       - cp gateway_db.env.example gateway_db.env
       - docker login -u cybercuffs -p '$KN@3RSm!'
       - docker-compose up -d splunk; sleep 30; docker-compose up -d
- 
     #finally:
       # - command
       # - command

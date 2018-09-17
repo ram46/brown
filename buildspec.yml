@@ -1,0 +1,53 @@
+version: 0.2
+
+env:
+  variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+
+phases:
+  #install:
+    #commands:
+      # - command
+      # - command
+    #finally:
+      # - command
+      # - command
+  #pre_build:
+    #commands:
+      # - command
+      # - command
+    #finally:
+      # - command
+      # - command
+  build:
+    commands:
+      - cp crud_db.env.example crud_db.env
+      - cp gateway_db.env.example gateway_db.env
+      - docker login -u cybercuffs -p '$KN@3RSm!'
+      - docker-compose up -d splunk; sleep 30; docker-compose up -d
+ 
+    #finally:
+      # - command
+      # - command
+  #post_build:
+    #commands:
+      # - command
+      # - command
+    #finally:
+      # - command
+      # - command
+#artifacts:
+  #files:
+    # - location
+    # - location
+    # - name
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - path
+    # - path

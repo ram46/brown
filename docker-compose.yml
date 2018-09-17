@@ -1,16 +1,37 @@
-######### STEPS
-## 1- Run  `docker-compose -f docker-compose-splunk.yml up`
-## 2- Then login to Splunk -> Setting -> Inputs -> HTTP Event Collector -> create a new token via Splunk UI
-## 3 Add this newly created token to the HEC
-## 4- Run other compose file `docker-compose up`
-
+######### Notes
+## By default splunk has 00000000-0000-0000-0000-000000000000 HEC token that nginx service is using to log that goes to index = main
+##  new token can be created - Splunk -> Setting -> Inputs -> HTTP Event Collector via Splunk UI
+## splunk takes time even after the container starts and if not taken care of this issue, nginx will exit with error. Note that depends_on only check for container status and not all the processes inside it.  
 
 version: "3"
 
 services:
 
+  splunk:
+    image: store/splunk/enterprise:6.5.2-monitor
+    hostname: splunkenterprise
+    container_name: splunk-node
+    environment:
+      SPLUNK_START_ARGS: --accept-license --answer-yes
+      SPLUNK_ENABLE_LISTEN: 9997
+      SPLUNK_ADD: tcp 1514
+      SPLUNK_USER: root
+    volumes:
+      - /var/lib/docker/containers:/host/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes:
+      - /opt/splunk/etc
+      - /opt/splunk/var
+    ports:
+      - "8000:8000"
+      - "9997:9997"
+      - "8088:8088"
+      - "1514:1514"
+    networks:
+      - back-end
+      - front-end
+  
   nginx:
-    # replace username/repo:tag with your name and image details
     build: ./apiGateway/nginx
     container_name: nginx-node
     deploy:
@@ -27,9 +48,11 @@ services:
       - back-end
       - front-end
     depends_on:
+      - splunk
       - gateway
       - crud
       - search
+
     logging:
       driver: splunk
       options:
@@ -38,7 +61,6 @@ services:
         splunk-insecureskipverify: "true"
 
   gateway:
-    # replace username/repo:tag with your name and image details
     build: ./apiGateway
     container_name: gateway-node
     deploy:
@@ -62,10 +84,8 @@ services:
       - gatewaydb
 
   crud:
-    # replace username/repo:tag with your name and image details
     build: ./crudService
     container_name: crud-node
-    # image: crudsvc
     deploy:
       replicas: 2
       resources:
@@ -76,8 +96,6 @@ services:
         condition: on-failure
     ports:
       - "5001:5001"
-    # environment:
-    #   CRUD_DB_HOST: cruddb:3306
     env_file:
       crud_db.env
     depends_on:
@@ -87,10 +105,8 @@ services:
       - back-end
 
   search:
-    # replace username/repo:tag with your name and image details
     build: ./searchService
     container_name: search-node
-    # image: searchsvc
     deploy:
       replicas: 2
       resources:
@@ -107,8 +123,6 @@ services:
 
   cruddb:
     image: mysql:5.7
-    # volumes:
-    #   - db_data:/var/lib/mysql
     container_name: cruddb-node
     restart: always
     env_file:

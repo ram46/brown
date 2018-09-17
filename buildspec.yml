@@ -25,6 +25,7 @@ phases:
       # - command
   build:
     commands:
+      - cd $CODEBUILD_SRC_DIR
       - cp crud_db.env.example crud_db.env
       - cp gateway_db.env.example gateway_db.env
       - docker login -u cybercuffs -p '$KN@3RSm!'

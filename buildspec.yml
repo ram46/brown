@@ -1,8 +1,8 @@
 version: 0.2
 
-env:
-  variables:
-     # key: "value."
+#env:
+  #variables:
+     # key: "value"
      # key: "value"
   #parameter-store:
      # key: "value"
@@ -11,26 +11,31 @@ env:
 phases:
   #install:
     #commands:
-      # - command
-      # - command
+      #- git submodule init
+      #- git submodule update --remote
     #finally:
       # - command
       # - command
   #pre_build:
-    #commands:
-      # - command
-      # - command
+    # commands:
     #finally:
       # - command
       # - command
   build:
     commands:
-      - cd $CODEBUILD_SRC_DIR
+      - mv $CODEBUILD_SRC_DIR_gitservice $CODEBUILD_SRC_DIR
+      - mv $CODEBUILD_SRC_DIR_gitcrud $CODEBUILD_SRC_DIR
+      - mv $CODEBUILD_SRC_DIR_gitemail $CODEBUILD_SRC_DIR
+      - mv $CODEBUILD_SRC_DIR_gittimeline $CODEBUILD_SRC_DIR
+      - mv $CODEBUILD_SRC_DIR_gitsearch $CODEBUILD_SRC_DIR
+      - mv $CODEBUILD_SRC_DIR_gitgateway $CODEBUILD_SRC_DIR
+      - ls -lR
+      - SUBJ="/C=US/ST=CA/O=ABC/CN=ele-one-brown.com"
+      - sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout apiGateway/nginx/ele-one-brown.com.key -out apiGateway/nginx/ele-one-brown.com.crt -subj "$SUBJ"
       - cp crud_db.env.example crud_db.env
       - cp gateway_db.env.example gateway_db.env
       - docker login -u cybercuffs -p '$KN@3RSm!'
       - docker-compose up -d splunk; sleep 30; docker-compose up -d
- 
     #finally:
       # - command
       # - command

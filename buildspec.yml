@@ -35,23 +35,29 @@ phases:
       - cp crud_db.env.example crud_db.env
       - cp gateway_db.env.example gateway_db.env
       - docker login -u cybercuffs -p '$KN@3RSm!'
-      - docker-compose up -d splunk; sleep 30; docker-compose up -d
+
     #finally:
       # - command
       # - command
-  #post_build:
-    #commands:
-      # - command
-      # - command
+  post_build:
+    commands:
+       - cd $CODEBUILD_SRC_DIR; zip -r  /tmp/brown.zip .
+       - cp $CODEBUILD_SRC_DIR/appspec.yml /tmp/appspec.yml
+       - echo "cd /tmp/; yes | unzip /tmp/brown.zip -d /home/brown; cd /home/brown; ls -la" > /tmp/unzip.sh
+       - echo "sudo curl -L 'https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose; sudo chmod +x /usr/local/bin/docker-compose" > /tmp/install_docker-compose.sh
+       - echo "docker login -u cybercuffs -p '$KN@3RSm!'; docker-compose up -d splunk; sleep 30; docker-compose up -d > /tmp/run_docker-compose"
     #finally:
       # - command
       # - command
-#artifacts:
-  #files:
-    # - location
-    # - location
+artifacts:
+  files:
+     - /tmp/brown.zip
+     - /tmp/unzip.sh
+     - /tmp/appspec.yml
+     - /tmp/install_docker-compose.sh
+     - /tmp/run_docker-compose
     # - name
-  #discard-paths: yes
+  discard-paths: yes
   #base-directory: location
 #cache:
   #paths:

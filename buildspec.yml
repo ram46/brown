@@ -44,8 +44,8 @@ phases:
        - cd $CODEBUILD_SRC_DIR; zip -r  /tmp/brown.zip .
        - cp $CODEBUILD_SRC_DIR/appspec.yml /tmp/appspec.yml
        - echo "cd /tmp/; yes | unzip /tmp/brown.zip -d /home/brown; cd /home/brown; ls -la" > /tmp/unzip.sh
-       - echo "sudo curl -L 'https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose; sudo chmod +x /usr/local/bin/docker-compose" > /tmp/install_docker-compose.sh
-       - echo "docker login -u cybercuffs -p '$KN@3RSm!'; docker-compose up -d splunk; sleep 30; docker-compose up -d > /tmp/run_docker-compose"
+       - echo "yes| sudo apt-get install unzip; sudo curl -L 'https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose; sudo chmod +x /usr/local/bin/docker-compose" > /tmp/install_docker-compose.sh
+       - echo "cd /home/brown/; docker login -u cybercuffs -p '"'$KN@3RSm!'"' ; yes | docker-compose up -d splunk; sleep 30; yes | docker-compose up -d" > /tmp/run_docker-compose.sh
     #finally:
       # - command
       # - command
@@ -55,7 +55,7 @@ artifacts:
      - /tmp/unzip.sh
      - /tmp/appspec.yml
      - /tmp/install_docker-compose.sh
-     - /tmp/run_docker-compose
+     - /tmp/run_docker-compose.sh
     # - name
   discard-paths: yes
   #base-directory: location

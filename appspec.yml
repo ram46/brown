@@ -1,0 +1,40 @@
+version: 0.0
+os: linux
+
+# copy brown to tmp
+files:
+  - source: ./brown.zip
+    destination: /tmp
+
+  - source: ./appspec.yml
+    destination: /tmp
+    
+  - source: ./unzip.sh
+    destination: /tmp
+    
+  - source: ./install_docker-compose.sh
+    destination: /tmp
+  
+  - source: ./run_docker-compose.sh
+    destination: /tmp
+    
+hooks:
+
+# During the BeforeInstall deployment lifecycle event, run the commands 
+#   in the script specified in "location".
+  BeforeInstall:
+    - location: unzip.sh
+      timeout:
+      runas:
+
+    - location: install_docker-compose.sh
+      timeout:
+      runas:
+      
+  AfterInstall:
+    - location: run_docker-compose.sh
+      timeout:
+      runas:
+# reference: https://docs.aws.amazon.com/codedeploy/latest/userguide/application-revisions-appspec-file.html?icmpid=docs_acd_console
+
+

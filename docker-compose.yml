@@ -1,7 +1,7 @@
 ######### Notes
 ## By default splunk has 00000000-0000-0000-0000-000000000000 HEC token that nginx service is using to log that goes to index = main
 ##  new token can be created - Splunk -> Setting -> Inputs -> HTTP Event Collector via Splunk UI
-## splunk takes time even after the container starts and if not taken care of this issue, nginx will exit with error. Note that depends_on only check for container status and not all the processes inside it.  
+## splunk takes time even after the container starts and if not taken care of this issue, nginx will exit with error. Note that depends_on only check for container status and not all the processes inside it.
 
 version: "3"
 
@@ -30,7 +30,7 @@ services:
     networks:
       - back-end
       - front-end
-  
+
   nginx:
     build: ./apiGateway/nginx
     container_name: nginx-node
@@ -97,7 +97,8 @@ services:
     ports:
       - "5001:5001"
     env_file:
-      crud_db.env
+      - crud_db.env
+      - aws_profile.env
     depends_on:
       - cruddb
     networks:
@@ -117,6 +118,23 @@ services:
         condition: on-failure
     ports:
       - "5002:5002"
+    networks:
+      - front-end
+      - back-end
+
+  email:
+    build: ./emailService
+    container_name: email-node
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5004:5004"
     networks:
       - front-end
       - back-end

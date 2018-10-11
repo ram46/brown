@@ -98,7 +98,7 @@ services:
       - "5001:5001"
     env_file:
       - crud_db.env
-      - aws_profile.env
+      # - aws_profile.env
     depends_on:
       - cruddb
     networks:
@@ -135,6 +135,8 @@ services:
         condition: on-failure
     ports:
       - "5004:5004"
+    env_file:
+      - aws_profile.env
     networks:
       - front-end
       - back-end

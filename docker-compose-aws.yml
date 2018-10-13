@@ -52,6 +52,7 @@ services:
       - gateway
       - crud
       - search
+
     logging:
       driver: splunk
       options:
@@ -73,14 +74,14 @@ services:
     ports:
       - "9000:9000"
     env_file:
-      gateway_db_local.env
+      gateway_db_aws.env
     networks:
       - front-end
       - back-end
     depends_on:
       - crud
       - search
-      - gatewaydb
+
 
   crud:
     build: ./crudService
@@ -96,9 +97,8 @@ services:
     ports:
       - "5001:5001"
     env_file:
-      - crud_db_local.env
-    depends_on:
-      - cruddb
+      - crud_db_aws.env
+
     networks:
       - front-end
       - back-end
@@ -139,41 +139,8 @@ services:
       - front-end
       - back-end
 
-  cruddb:
-    image: mysql:5.7
-    container_name: cruddb-node
-    restart: always
-    env_file:
-      crud_db_local.env
-    networks:
-      - back-end
-
-  gatewaydb:
-    image: mysql:5.7
-    container_name: gatewaydb-node
-    restart: always
-    env_file:
-      gateway_db_local.env
-    networks:
-      - back-end
-
-
-  # timeline:
-  #   build: ./timelineService
-  #   container_name: timeline-node
-  #   deploy:
-  #     replicas: 2
-  #     resources:
-  #       limits:
-  #         cpus: "0.1"
-  #         memory: 50M
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "5003:5003"
-  #   networks:
-  #     - front-end
-  #     - back-end
 networks:
   front-end:
   back-end:
+
+

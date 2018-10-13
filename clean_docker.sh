@@ -15,3 +15,6 @@ docker system prune
 docker rm $(docker ps -a -q) -f
 # Delete all images
 docker rmi $(docker images -q) -f
+
+
+#### reference: https://stackoverflow.com/questions/31909979/docker-machine-no-space-left-on-device

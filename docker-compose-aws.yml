@@ -52,6 +52,7 @@ services:
       - gateway
       - crud
       - search
+
     logging:
       driver: splunk
       options:
@@ -75,14 +76,14 @@ services:
     env_file:
       gateway_db.env
     environment:
-      MYSQL_HOST: gatewaydb-node
+      MYSQL_HOST: brown-rds.cybcv6sapix7.us-east-1.rds.amazonaws.com
     networks:
       - front-end
       - back-end
     depends_on:
       - crud
       - search
-      - gatewaydb
+
 
   crud:
     build: ./crudService
@@ -100,9 +101,7 @@ services:
     env_file:
       - crud_db.env
     environment:
-      MYSQL_HOST: cruddb-node
-    depends_on:
-      - cruddb
+      MYSQL_HOST: brown-rds.cybcv6sapix7.us-east-1.rds.amazonaws.com
     networks:
       - front-end
       - back-end
@@ -143,43 +142,9 @@ services:
       - front-end
       - back-end
 
-  cruddb:
-    image: mysql:5.7
-    container_name: cruddb-node
-    restart: always
-    env_file:
-      crud_db.env
-    networks:
-      - back-end
 
-
-  gatewaydb:
-    image: mysql:5.7
-    container_name: gatewaydb-node
-    restart: always
-    env_file:
-      gateway_db.env
-    networks:
-      - back-end
-
-
-
-  # timeline:
-  #   build: ./timelineService
-  #   container_name: timeline-node
-  #   deploy:
-  #     replicas: 2
-  #     resources:
-  #       limits:
-  #         cpus: "0.1"
-  #         memory: 50M
-  #     restart_policy:
-  #       condition: on-failure
-  #   ports:
-  #     - "5003:5003"
-  #   networks:
-  #     - front-end
-  #     - back-end
 networks:
   front-end:
   back-end:
+
+

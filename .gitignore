@@ -5,10 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-crud_db_aws.env
-crud_db_local.env
-gateway_db_aws.env
-gateway_db_local.env
+crud_db.env
+gateway_db.env
+aws_profile.env
 
 
 # Runtime data

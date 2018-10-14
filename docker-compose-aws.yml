@@ -74,7 +74,9 @@ services:
     ports:
       - "9000:9000"
     env_file:
-      gateway_db_aws.env
+      gateway_db.env
+    environment:
+      MYSQL_HOST: brown-rds.cybcv6sapix7.us-east-1.rds.amazonaws.com
     networks:
       - front-end
       - back-end
@@ -97,8 +99,9 @@ services:
     ports:
       - "5001:5001"
     env_file:
-      - crud_db_aws.env
-
+      - crud_db.env
+    environment:
+      MYSQL_HOST: brown-rds.cybcv6sapix7.us-east-1.rds.amazonaws.com
     networks:
       - front-end
       - back-end
@@ -138,6 +141,7 @@ services:
     networks:
       - front-end
       - back-end
+
 
 networks:
   front-end:

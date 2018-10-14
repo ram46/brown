@@ -53,7 +53,15 @@ Add https://localhost:7777 and http://localhost:7777 in OAuth 2.0 client IDs (in
 ```sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout brown/apiGateway/nginx/ele-one-brown.com.key -out brown/apiGateway/nginx/ele-one-brown.com.crt```
 
 
+#### Dev Help
 
+```
+docker container ls
+docker image ls
+sh clean-docker.sh //script included in repo to clean all image and containers
+docker exec -it crud-node bash
+
+```
 
 
 

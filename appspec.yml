@@ -18,6 +18,14 @@ files:
   - source: ./run_docker-compose.sh
     destination: /tmp
 
+  - source: ./aws_profile.env
+    destination: /home/brown
+
+  - source: ./crud_db.env
+    destination: /home/brown
+
+  - source: ./gateway_db.env
+    destination: /home/brown
 
 hooks:
 

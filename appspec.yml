@@ -18,8 +18,6 @@ files:
   - source: ./run_docker-compose.sh
     destination: /tmp
 
-  - source: ./env_variables.sh
-    destination: /tmp
 
 hooks:
 
@@ -34,9 +32,6 @@ hooks:
       timeout:
       runas:
 
-    - location: env_variables.sh
-      timeout:
-      runas:
 
   AfterInstall:
     - location: run_docker-compose.sh

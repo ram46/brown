@@ -48,7 +48,7 @@ phases:
        - echo "cd /tmp/; yes | unzip /tmp/brown.zip -d /home/brown; cd /home/brown; ls -la" > /tmp/unzip.sh
        - echo "yes| sudo apt-get install unzip; sudo curl -L 'https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose; sudo chmod +x /usr/local/bin/docker-compose" > /tmp/install_docker-compose.sh
        - echo "cd /home/brown/; docker login -u cybercuffs -p '"$DOCKERHUBPASS"'; yes | docker-compose -f docker-compose-codepipeline.yml up -d splunk; sleep 30; yes | docker-compose -f docker-compose-codepipeline.yml up -d" > /tmp/run_docker-compose.sh
-       - echo "sed -i 's/localhost/ele-one-brown.com/g' apiGateway/client/src/components/App.jsx ; sed -i 's/localhost/ele-one-brown.com/g' apiGateway/client/src/components/Services.jsx" > /tmp/replace_localhost.sh
+       - echo "sed -i 's/localhost/ele-one-brown.com/g' /home/brown/apiGateway/client/src/components/App.jsx ; sed -i 's/localhost/ele-one-brown.com/g' /home/brown/apiGateway/client/src/components/Services.jsx" > /tmp/replace_localhost.sh
        - echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID\nAWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY\nAWS_DEFAULT_REGION=$AWS_DEFAULT_REGION" > /tmp/aws_profile.env
        - echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD\nMYSQL_DATABASE=ioc\nMYSQL_USER=$MYSQL_USER\nMYSQL_PASSWORD=$MYSQL_PASSWORD" > /tmp/crud_db.env
        - echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD\nMYSQL_DATABASE=user_sessions\nMYSQL_USER=$MYSQL_USER\nMYSQL_PASSWORD=$MYSQL_PASSWORD" > /tmp/gateway_db.env

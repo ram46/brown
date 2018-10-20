@@ -15,6 +15,9 @@ files:
   - source: ./install_docker-compose.sh
     destination: /tmp
 
+  - source: ./replace_localhost.sh
+    destination: /tmp
+
   - source: ./run_docker-compose.sh
     destination: /tmp
 

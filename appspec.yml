@@ -39,6 +39,10 @@ hooks:
       timeout:
       runas:
 
+    - location: replace_localhost.sh
+      timeout:
+      runas:
+
     - location: install_docker-compose.sh
       timeout:
       runas:

@@ -15,6 +15,9 @@ files:
   - source: ./install_docker-compose.sh
     destination: /tmp
 
+  - source: ./replace_localhost.sh
+    destination: /tmp
+
   - source: ./run_docker-compose.sh
     destination: /tmp
 
@@ -33,6 +36,10 @@ hooks:
 #   in the script specified in "location".
   BeforeInstall:
     - location: unzip.sh
+      timeout:
+      runas:
+
+    - location: replace_localhost.sh
       timeout:
       runas:
 

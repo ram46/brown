@@ -143,6 +143,23 @@ services:
       - back-end
 
 
+  timeline:
+    build: ./timelineService
+    container_name: timeline-node
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5003:5003"
+    networks:
+      - front-end
+      - back-end
+
 networks:
   front-end:
   back-end:

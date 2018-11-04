@@ -1,21 +1,54 @@
-# Welcome Home!
+## What is Brown?
+Brown is an IOC (Indicator Of Compromise) management, versioning, analysis and search automation application system.
+<img src="apiGateway/server/views/design.png">
 
-## Merumque luctus
+## Tech Stack
 
 
 
+
+## Microservice Architecture
+
+
+
+
+
+## Database Schema
+
+
+
+
+## Versioning Logic
+
+
+### Services
+- crud
+- search
+- email
+- timeline
+
+
+#### Rendering
+- Home page is a server side rendered
+- All services are client side rendered via React Router
+
+
+
+
+
+### CRUD
+
+
+
+## Short Demo/ website tour
 <video width="400" controls>
-  <source src="abc.mp4" type="video/mp4">
+  <source src="eleone1.mp4" type="video/mp4">
   Your browser does not support HTML5 video.
 </video>
 
 
 
 
-Lorem markdownum *huic*, ora auro est? Quem lenta magna. Ad ramum [inpulsaque
-pastoria patientia](http://revocare.com/volucres.php) cuncta **ipsumque
-fausto**; palustres agger una ad utque dum
-[atavosque](http://vinctainvidit.io/).
 
 ## Gemitumque illa gemitumque exhalantia tuam
 

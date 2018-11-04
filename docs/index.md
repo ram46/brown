@@ -1,6 +1,6 @@
 ## What is Brown?
 Brown is an IOC (Indicator Of Compromise) management, versioning, analysis and search automation application system.
-<img src="apiGateway/server/views/design.png">
+<img src="./apiGateway/server/views/design.png">
 
 ## Tech Stack
 

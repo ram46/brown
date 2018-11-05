@@ -1,4 +1,10 @@
-site_name: MkLorum
+site_name: Brown
+repo_url: https://github.com/ele-one/brown
+site_description: IOC
+site_author: key-er and ram46
+copyright: All right reserved ®
+
 nav:
-    - Home: index.md
-    - About: about.md
+    - 'Demo': 'demo.md'
+    - 'Challenges': 'challenges.md'
+

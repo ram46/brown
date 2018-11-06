@@ -1,7 +1,7 @@
 <h1> Brown Tour </h1>
 Brown has 4 tabs as below:
 
-# Four Tabs of Browns
+### Four Tabs of Browns
 <ul>
   <li> Home </li>
     <p style="text-indent: 10px"> It is a server side rendered page that contains all the information about the website architecture </p>
@@ -17,7 +17,7 @@ Brown has 4 tabs as below:
 
 
 
-# Example for CRUD interface
+### Example for CRUD interface
 
 <p> Create </p>
 <pre> {"caseName":"APT222", "ioc": "ylio.exe", "ioctype":"file"}  </pre>
@@ -42,7 +42,7 @@ Brown has 4 tabs as below:
 
 
 <video width="400" controls>
-  <source src="views/eleone1.mp4" type="video/mp4">
+  <source src="brown_demo.mp4" type="video/mp4">
   Your browser does not support HTML5 video.
 </video>
 

@@ -9,6 +9,7 @@ crud_db.env
 gateway_db.env
 aws_profile.env
 
+site
 
 # Runtime data
 pids

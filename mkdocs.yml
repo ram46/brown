@@ -1,0 +1,9 @@
+site_name: Brown
+site_description: IOC
+site_author: key-er and ram46
+copyright: All right reserved ®
+
+nav:
+    - 'Demo': 'demo.md'
+    - 'Challenges': 'challenges.md'
+

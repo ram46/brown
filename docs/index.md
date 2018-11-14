@@ -6,7 +6,7 @@ Brown is an IOC (Indicator Of Compromise) management, versioning, analysis and s
     <li> Uses Splunk for logging nginx access attempts </li>
     <li> Formulates a new way of versioning IOCs </li>
     <li> Able to search various versions within log files </li>
-    <li> A 62% progressive web application </li>
+    <li> Use service workers to cache content for offline access </li>
     <li> Makes use nginx for reverse proxying </li>
     <li> Uses Splunk for nginx access logs </li>
 
